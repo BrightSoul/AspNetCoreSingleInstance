@@ -8,11 +8,11 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-web",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/net5.0/AspNetCoreSingleInstance.dll",
+            "program": "${workspaceFolder}/src/AspNetCoreSingleInstance.Web/bin/Debug/net5.0/AspNetCoreSingleInstance.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/src/AspNetCoreSingleInstance.Web",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
@@ -23,7 +23,21 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/src/AspNetCoreSingleInstance.Web/Views": "${workspaceFolder}/src/AspNetCoreSingleInstance.Web/Views"
+            }
+        },
+        {
+            "name": ".NET Core Launch (host)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-host",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/AspNetCoreSingleInstance.Host/bin/Debug/net5.0-windows/win-x64/AspNetCoreSingleInstance.Host.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/AspNetCoreSingleInstance.Host",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
             }
         },
         {
