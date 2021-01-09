@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <ProjectReference Include="..\AspNetCoreSingleInstance.Web\AspNetCoreSingleInstance.Web.csproj" />
@@ -11,6 +11,6 @@
     <UseWindowsForms>true</UseWindowsForms>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
-
 </Project>

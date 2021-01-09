@@ -17,12 +17,12 @@ namespace AspNetCoreSingleInstance.Host
         private readonly IHost webHost;
         private readonly NotifyIcon notificationIcon;
 
-        public WebHostApplicationContext(string[] args)
+        public WebHostApplicationContext(string title, string[] args)
         {
             // Stop the web applicaton and perform cleanup on application exit
             Application.ApplicationExit += (sender, args) => StopWebApp();
             // Create a tray icon
-            notificationIcon = CreateNotifyIcon();
+            notificationIcon = CreateNotifyIcon(title);
             // Create the web host and start the web application
             webHost = StartWebApp(args);
             // Open in the browser, even if the start failed
@@ -56,18 +56,17 @@ namespace AspNetCoreSingleInstance.Host
             try
             {
                 Console.WriteLine("Stopping web application...");
-                var stopTask = webHost.StopAsync(TimeSpan.FromSeconds(10));
-                stopTask.ConfigureAwait(false);
-                stopTask.Wait();
+                webHost.StopAsync(TimeSpan.FromSeconds(5)).Wait();
                 Console.WriteLine("Web application was stopped successfully");
             }
             catch
             {
-                Console.WriteLine("Couldn't stop the web application in the allotted time");
+                Console.WriteLine("Couldn't stop web application in the allotted time");
             }
             finally
             {
-                // Web host should be properly disposed
+                // Web host must be disposed
+                // This is needed, or the process won't terminate properly
                 webHost.Dispose();
             }
         }
@@ -92,7 +91,7 @@ namespace AspNetCoreSingleInstance.Host
             }
         }
 
-        private NotifyIcon CreateNotifyIcon()
+        private NotifyIcon CreateNotifyIcon(string title)
         {
             // Create two commands for the tray icon menu
             var showCommand = new ToolStripMenuItem("Show in browser");
@@ -104,8 +103,8 @@ namespace AspNetCoreSingleInstance.Host
             // Create the tray icon itself
             var notifyIcon = new NotifyIcon
             {
-                Text = "My ASP.NET Core Application",
-                Icon = SystemIcons.Application,
+                Text = title,
+                Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath), // SystemIcons.Application
                 Visible = true,
                 ContextMenuStrip = new ContextMenuStrip
                 {

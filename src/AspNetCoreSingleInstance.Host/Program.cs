@@ -14,7 +14,7 @@ namespace AspNetCoreSingleInstance.Host
             if (hasConsole) AllocConsole();
 
             // Run the winforms application (which in turn will run the web application)
-            Application.Run(new WebHostApplicationContext(args));
+            Application.Run(new WebHostApplicationContext("My ASP.NET Core standalone application", args));
 
             if (hasConsole) FreeConsole();
         }
