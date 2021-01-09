@@ -46,6 +46,8 @@
             "args": [
                 "publish",
                 "${workspaceFolder}/src/AspNetCoreSingleInstance.Host/AspNetCoreSingleInstance.Host.csproj",
+                "-c",
+                "Release",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
